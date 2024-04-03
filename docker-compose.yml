@@ -1,0 +1,20 @@
+version: '3'
+services:
+  apache1:
+    image: httpd:latest
+    volumes:
+      - ./site1:/usr/local/apache2/htdocs/:ro
+    ports:
+      - "8081:80"
+  apache2:
+    image: httpd:latest
+    volumes:
+      - ./site2:/usr/local/apache2/htdocs/:ro
+    ports:
+      - "8082:80"
+  loadbalancer:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - SERVER_PORT=80
